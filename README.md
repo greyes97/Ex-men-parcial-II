@@ -20,70 +20,59 @@ mvn package
 ### Servicio FTP:
 En este servicio se podrá subir un archivo en formato PSV, el cual cada minuto leerá los archivos 
 alojados en el folder FTP y generará un archivo en formato JSON, en otro folder del FTP.
-
-#### Params
-    'a': 8,
-    'b': 1'
-
-### Response 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
-    
-    {
-        "status": 200,
-        "message": "success",
-        "result": 9.0
-    }
-### Subtraction
-`GET /math/sub 
-`
+#### Utilización
 ```bash
-http://localhost:8080/math/sub?a=8&b=1
+> ftp
+ftp > open localhost port
+ftp > open 0.0.0.0 2222
 ```
-#### Params
-    'a': 8,
-    'b': 1'
+#### Default user
+usuario: fernando
+password: 1234
 
-### Response 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
-    
-    {
-        "status": 200,
-        "message": "success",
-        "result": 7.0
-    }
+Con esta configuración, ya es posible transferir archivos PSV.
 
-### Multiplication
-`GET /math/mul 
-`
+### Predicción de población:
+Este servicio es capaz de determinar la población de personas en una generación, en base de una población de personas. Esto es posible mediante la implementación de un algoritmo genético. P (Población) será un arreglo "H", "M", "H", "M", "M"]
 ```bash
-http://localhost:8080/math/mul?a=8&b=1
+http://localhost:9595/examenfinal/ia?population=h,m,h,m,h,m&generation=10
 ```
-#### Params
+#### Parámetros de entrada:
+    'generation': 10
+
+#### Respuesta 
+    {
+    "status": 200,
+    "message": "Genetic Algorithm completed successfully",
+    "populationDto": {
+        "population": [
+            "m",
+            "m",
+            "m",
+            "m",
+            "m",
+            "m"
+        ],
+        "males": 0,
+        "famales": 6
+    }
+}
+
+### Controlador de actualización:
+Este endpoint es capaz de cargar un archivo con extensión xls y xlsx, y generar un archivo
+equivalente en formato XML. Este archivo se almacena en un tiempo de 5 minutos en un folder del sistema de archivos. Cuenta también con un proceso automático que verifica la los archivos en ese folder y elimina aquellos con más de 5 minutos almacenados.
+
+```bash
+POST http://<server>:<port>/examen-final/upload
+```
+#### Parámetros de entrada
     'a': 8,
     'b': 1'
 
 ### Response 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
-    
     {
-        "status": 200,
-        "message": "success",
-        "result": 8.0
+	status: 200,
+	message: "se ha almacenado el archivo"
     }
 
 ### Division
@@ -111,4 +100,3 @@ http://localhost:8080/math/div?a=8&b=2
     }
 
 ## Diagrama de clases
-![alt text](doc/Math.png)
